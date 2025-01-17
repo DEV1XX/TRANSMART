@@ -1,28 +1,36 @@
 const mongoose = require('mongoose');
 
-const   TransactionSchema = new mongoose.Schema({
+const transactionSchema = new mongoose.Schema({
     amount: {
         type:Number,
-        required:true
+        required: true
     },
     date: {
         type:Date,
-        required:true,
-        default: Date.now
+        required: true,
+        default: Date.now,
+        index: true
     },
     category: {
-        type:String,
+        type: String,
         required: true,
+        enum: ['food','travel']
     },
     description: {
-        type : String, 
+        type: String,
+        trim: true
+    },
+    paymentMode: {
+        type: String,
+        enum: ['cash', 'credit card', 'debit card', 'bank transfer'],
+        default: 'cash'
     },
     userId: {
-        type:mongoose.Schema.Types.ObjectId, 
-        ref:'User',
-        required: true
-    }
-})
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+    },
+});
 
-const Transaction = mongoose.model('Transaction', TransactionSchema);
+const Transaction = mongoose.model('Transaction',transactionSchema);
 module.exports = Transaction;
