@@ -44,12 +44,14 @@ const login = async (req,res) =>{
         if(!isMatch){
             return res.status(400).json({success: false, message: "Invalid email or password!"});
         }
-        //GENERATE AND SET COOKIES
-        const token = jwt.sign(
-            {userId: user._id, email: user.email},
-            process.env.JWT_SECRET,
-            {expiresIn: '24h'}
-        )
+        //GENERATE COOKEIES
+        const token = jwt.sign({userId: user._id, email: user.email},process.env.JWT_SECRET,{expiresIn: '24h'});
+        //SEND GENERATED COOKIES BACK TO CLIENT
+        res.cookie('token', token, {
+            httpOnly: true,   // Prevents JavaScript access to the cookie
+            secure: process.env.NODE_ENV === 'production', // Sends cookie only over HTTPS in production
+            sameSite: 'strict' // Prevents CSRF attacks by ensuring the cookie is sent only for same-site requests
+        });
         return res.status(200).json({ success: true, token, message: "Login successful!" });
     } catch (error) {
         console.error(error);
