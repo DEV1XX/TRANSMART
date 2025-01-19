@@ -78,9 +78,9 @@ const addCategory = async (req,res) => {
 //DELETE CUSTOM CATEGORY
 const deleteCategory = async (req,res) => {
         //get category from request
-        const {category} = req.body;
+        const {categoryName} = req.params;
         //if category not present throw error
-        if(!category){
+        if(!categoryName){
             return res.status(400).json({success: false,message: "Category name is required!"});
         }
         try {
@@ -88,7 +88,7 @@ const deleteCategory = async (req,res) => {
         //if user not found throw error 
         if(!user) return res.status(404).json({success: false, message: "User not found!"});
         // Check if the category exists before removing
-        const categoryIndex = user.categories.indexOf(category);
+        const categoryIndex = user.categories.indexOf(categoryName);
         if (categoryIndex === -1) {
             return res.status(400).json({ success: false, message: "Category not found" });
         }
