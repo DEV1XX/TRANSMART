@@ -25,7 +25,8 @@ const signup = async (req,res) => {
         return res.status(201).json({ success: true, message: "Signup successful!" });
 
     }catch(error){
-        return res.status(500).json({success: false, message: "An error occurred during signup." });
+        console.log(error);
+        return res.status(500).json({success: false, message: "An error occurred during signup.",error:error.message});
     }
 }
 //LOGIN ROUTE 

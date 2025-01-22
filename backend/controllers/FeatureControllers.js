@@ -102,4 +102,9 @@ const deleteCategory = async (req,res) => {
         }
 }
 
-module.exports = {addTransaction, deleteTransaction, getAllTransactions, addCategory, deleteCategory}
+//API TESTING
+const testapi = (req,res) => {
+    res.send("yo yo honey singh");
+}
+
+module.exports = {addTransaction, deleteTransaction, getAllTransactions, addCategory, deleteCategory, testapi}

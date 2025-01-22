@@ -3,10 +3,13 @@ const router = express.Router();
 
 //IMPORTING CONTROLLERS 
 const {signup, login, logout} = require('./controllers/AuthControllers');
-const {addTransaction, deleteTransaction, getAllTransactions, addCategory, deleteCategory } = require('./controllers/FeatureControllers');
+const {addTransaction, deleteTransaction, getAllTransactions, addCategory, deleteCategory ,testapi } = require('./controllers/FeatureControllers');
 
 //IMPORTING MIDDLEWARES
 const { authenticate } = require('./middlewares/authenticate')
+
+//testing api
+router.get('/',testapi)
 
 //AUTH ROUTES
 router.post('/signup', signup);
